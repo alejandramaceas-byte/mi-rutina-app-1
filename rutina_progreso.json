@@ -1,0 +1,97 @@
+{
+    "Lunes: Tren Inferior (Cuadriceps / Gluteos)": [
+        {
+            "ejercicio": "Prensa Inclinada",
+            "musculo": "Cuadriceps",
+            "series": 4,
+            "repeticiones": "8-10",
+            "peso_anterior_kg": 160.0,
+            "peso_actual_kg": 160.01,
+            "reemplazo_activo": "Extension de Cuadriceps",
+            "imagen": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400",
+            "alternativas": [
+                "Sentadilla Hack",
+                "Zancadas Bulgaras",
+                "Extension de Cuadriceps"
+            ]
+        },
+        {
+            "ejercicio": "Sentadilla Goblet",
+            "musculo": "Cuadriceps / Core",
+            "series": 3,
+            "repeticiones": "10-12",
+            "peso_anterior_kg": 16.0,
+            "peso_actual_kg": 16.0,
+            "reemplazo_activo": "(Mantener actual)",
+            "imagen": "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=400",
+            "alternativas": [
+                "Sentadilla Libre",
+                "Prensa Horizontal"
+            ]
+        }
+    ],
+    "Martes: Espalda y Hombros": [
+        {
+            "ejercicio": "Jalon al Pecho",
+            "musculo": "Espalda (Dorsales)",
+            "series": 4,
+            "repeticiones": "10-12",
+            "peso_anterior_kg": 35.0,
+            "peso_actual_kg": 35.0,
+            "reemplazo_activo": "(Mantener actual)",
+            "imagen": "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=400",
+            "alternativas": [
+                "Dominadas asistidas",
+                "Remo en polea baja"
+            ]
+        }
+    ],
+    "Miercoles: Cadena Posterior (Gluteos / Isquios)": [
+        {
+            "ejercicio": "Hip Thrust",
+            "musculo": "Gluteos",
+            "series": 4,
+            "repeticiones": "8-10",
+            "peso_anterior_kg": 80.0,
+            "peso_actual_kg": 80.0,
+            "reemplazo_activo": "(Mantener actual)",
+            "imagen": "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=400",
+            "alternativas": [
+                "Puente de gluteos",
+                "Peso muerto rumano"
+            ]
+        }
+    ],
+    "Jueves: Torso Superior (Pecho y Biceps)": [
+        {
+            "ejercicio": "Press de Banca con Mancuernas",
+            "musculo": "Pecho",
+            "series": 4,
+            "repeticiones": "8-10",
+            "peso_anterior_kg": 12.0,
+            "peso_actual_kg": 12.0,
+            "reemplazo_activo": "(Mantener actual)",
+            "imagen": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400",
+            "alternativas": [
+                "Flexiones",
+                "Press en maquina"
+            ]
+        }
+    ],
+    "Viernes: Gluteos, Core y Triceps": [
+        {
+            "ejercicio": "Patada de Gluteo en Polea",
+            "musculo": "Gluteos",
+            "series": 4,
+            "repeticiones": "12-15",
+            "peso_anterior_kg": 15.0,
+            "peso_actual_kg": 15.0,
+            "reemplazo_activo": "(Mantener actual)",
+            "imagen": "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=400",
+            "alternativas": [
+                "Sentadilla Bulgara",
+                "Hip Thrust"
+            ]
+        }
+    ]
+}
