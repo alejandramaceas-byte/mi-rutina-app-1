@@ -28,6 +28,7 @@ rutina = {
                 "tempo": "2-2-1-0",
                 "carga": "20-30 kg",
                 "nota": "Fuerza pura de glúteo. Pausa de 2 s arriba apretando. Mentón al pecho."
+                 "imagen": "assets/Hip Thrust con Barra.png"
             },
             {
                 "ejercicio": "Peso Muerto Rumano con Mancuernas",
