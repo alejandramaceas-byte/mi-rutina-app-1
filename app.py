@@ -1,22 +1,23 @@
-
-import streamlit as st
 import json
-from pathlib import Path
 from datetime import date
+from pathlib import Path
+import pandas as pd
+import streamlit as st
 
 # ============================================================
 # CONFIGURACIÓN
 # ============================================================
 st.set_page_config(
-    page_title="Mi Rutina de Hipertrofia",
-    page_icon="💪",
-    layout="wide"
+    page_title="Mi Rutina de Hipertrofia", page_icon="💪", layout="wide"
 )
 
 HISTORIAL_FILE = Path("historial_pesos.json")
 
+# URL base para cargar directamente desde GitHub si está desplegada en Streamlit Cloud:
+BASE_URL = "https://raw.githubusercontent.com/alejandramaceas-byte/mi-rutina-app-1/main"
+
 # ============================================================
-# RUTINA PRINCIPAL
+# RUTINA PRINCIPAL (Con mapeo exacto de imágenes)
 # ============================================================
 rutina = {
     "Lunes: Pierna A 🍑": {
@@ -27,39 +28,43 @@ rutina = {
                 "series": "4 x 8-10",
                 "tempo": "2-2-1-0",
                 "carga": "20-30 kg",
-                "nota": "Fuerza pura de glúteo. Pausa de 2 s arriba apretando. Mentón al pecho."
+                "nota": "Fuerza pura de glúteo. Pausa de 2 s arriba apretando. Mentón al pecho.",
+                "imagen": f"{BASE_URL}/Hip%20Thrust%20con%20Barra.jpg",
             },
             {
                 "ejercicio": "Peso Muerto Rumano con Mancuernas",
                 "series": "4 x 10-12",
                 "tempo": "3-1-1-0",
                 "carga": "12-14 kg / mano",
-                "nota": "Empujar cadera hacia atrás. Estiramiento de isquio/glúteo."
+                "nota": "Empujar cadera hacia atrás. Estiramiento de isquio/glúteo.",
+                "imagen": f"{BASE_URL}/Peso%20Muerto%20Rumano%20con%20Mancuernas.jpg",
             },
             {
                 "ejercicio": "Step-Up en Banco",
                 "series": "3 x 10-12 c/p",
                 "tempo": "3-0-1-0",
                 "carga": "8 kg / mano",
-                "nota": "Torso inclinado 45°. Subir empujando el talón, sin impulso de la pierna trasera."
+                "nota": "Torso inclinado 45°. Subir empujando el talón, sin impulso de la pierna trasera.",
+                "imagen": f"{BASE_URL}/Step-Up%20en%20Banco.jpg",
             },
             {
                 "ejercicio": "Curl de Femoral Sentado",
                 "series": "4 x 12-15",
                 "tempo": "3-1-1-1",
                 "carga": "50 kg",
-                "nota": "Pelvis pegada al respaldo. Sostener 1 s la contracción."
+                "nota": "Pelvis pegada al respaldo. Sostener 1 s la contracción.",
+                "imagen": f"{BASE_URL}/Curl_de_Femoral_Sentado.jpg",
             },
             {
                 "ejercicio": "Abducción de Cadera en Máquina",
                 "series": "3 x 15-20",
                 "tempo": "2-2-1-0",
                 "carga": "50 kg",
-                "nota": "Tronco inclinado adelante. Pausa de 2 s al abrir."
-            }
-        ]
+                "nota": "Tronco inclinado adelante. Pausa de 2 s al abrir.",
+                "imagen": f"{BASE_URL}/Abducci%C3%B3n_de_Cadera_en_M%C3%A1quina.jpg",
+            },
+        ],
     },
-
     "Martes: Torso A 💪": {
         "objetivo": "Fuerza de Empuje y Tracción",
         "ejercicios": [
@@ -68,39 +73,43 @@ rutina = {
                 "series": "4 x 8-10",
                 "tempo": "3-1-1-0",
                 "carga": "12 kg / mano",
-                "nota": "Apertura de tórax. Bajada controlada de 3 s."
+                "nota": "Apertura de tórax. Bajada controlada de 3 s.",
+                "imagen": f"{BASE_URL}/Press%20Inclinado%20Mancuerna.jpg",
             },
             {
                 "ejercicio": "Jalón al Pecho (Agarre Neutro)",
                 "series": "4 x 8-10",
                 "tempo": "3-1-1-1",
                 "carga": "36 kg",
-                "nota": "Tracción con los codos. Pausa de 1 s en la contracción."
+                "nota": "Tracción con los codos. Pausa de 1 s en la contracción.",
+                "imagen": f"{BASE_URL}/Jalon%20al%20Pecho.jpg",
             },
             {
                 "ejercicio": "Press Militar Sentado con Mancuernas",
                 "series": "3 x 10-12",
                 "tempo": "2-1-1-0",
                 "carga": "10 kg / mano",
-                "nota": "Estabilidad de core, sin arquear la espalda baja."
+                "nota": "Estabilidad de core, sin arquear la espalda baja.",
+                "imagen": f"{BASE_URL}/Press%20Militar%20Sentado%20con%20Mancuernas.jpg",
             },
             {
                 "ejercicio": "Remo en Polea Baja (Agarre Giratorio)",
                 "series": "3 x 10-12",
                 "tempo": "3-0-1-1",
                 "carga": "32-36 kg",
-                "nota": "Estirar escápulas al frente y apretar atrás en la contracción."
+                "nota": "Estirar escápulas al frente y apretar atrás en la contracción.",
+                "imagen": f"{BASE_URL}/Remo%20en%20Polea%20Baja%20(Agarre%20Giratorio).jpg",
             },
             {
                 "ejercicio": "Aperturas en Polea (Cruce)",
                 "series": "3 x 12-15",
                 "tempo": "2-1-1-1",
                 "carga": "5 kg / lado",
-                "nota": "Aislamiento pectoral, foco en el pico de contracción."
-            }
-        ]
+                "nota": "Aislamiento pectoral, foco en el pico de contracción.",
+                "imagen": f"{BASE_URL}/Aperturas%20en%20Polea%20(Cruce).jpg",
+            },
+        ],
     },
-
     "Miércoles: Pierna B 🦵": {
         "objetivo": "Énfasis Cuádriceps - Protocolo Rodilla",
         "ejercicios": [
@@ -109,39 +118,43 @@ rutina = {
                 "series": "4 x 12-15",
                 "tempo": "3-1-1-1",
                 "carga": "23 kg",
-                "nota": "Pre-exhaustación. Sostener 1 s arriba, bajar en 3 s. No bloquear."
+                "nota": "Pre-exhaustación. Sostener 1 s arriba, bajar en 3 s. No bloquear.",
+                "imagen": f"{BASE_URL}/Extensi%C3%B3n%20de%20Cu%C3%A1driceps.jpg",
             },
             {
                 "ejercicio": "Sentadilla Trasera (Talones Elevados)",
                 "series": "3 x 8-10",
                 "tempo": "3-1-1-0",
                 "carga": "7.5-10 kg / lado",
-                "nota": "Disco delgado bajo talones. Bajar en 3 s sin rebote abajo."
+                "nota": "Disco delgado bajo talones. Bajar en 3 s sin rebote abajo.",
+                "imagen": f"{BASE_URL}/Sentadilla%20Trasera%20(Talones%20Elevados).jpg",
             },
             {
                 "ejercicio": "Prensa de Piernas",
                 "series": "3 x 10-12",
                 "tempo": "3-0-1-0",
                 "carga": "30 kg / lado",
-                "nota": "Pies a anchura de hombros en zona media-baja. Frenar antes del bloqueo."
+                "nota": "Pies a anchura de hombros en zona media-baja. Frenar antes del bloqueo.",
+                "imagen": f"{BASE_URL}/Prensa%20de%20Piernas.jpg",
             },
             {
                 "ejercicio": "Zancadas Estáticas (Fijas)",
                 "series": "3 x 12 c/p",
                 "tempo": "2-1-1-0",
                 "carga": "5-7.5 kg / mano",
-                "nota": "Descenso vertical estricto para evitar desviaciones de la rótula."
+                "nota": "Descenso vertical estricto para evitar desviaciones de la rótula.",
+                "imagen": f"{BASE_URL}/Zancadas%20Est%C3%A1ticas%20(Fijas).jpg",
             },
             {
                 "ejercicio": "Elevación de Gemelos de Pie",
                 "series": "4 x 15-20",
                 "tempo": "2-2-1-1",
                 "carga": "Peso corporal",
-                "nota": "Pausa de 2 s abajo en estiramiento total."
-            }
-        ]
+                "nota": "Pausa de 2 s abajo en estiramiento total.",
+                "imagen": f"{BASE_URL}/Elevaci%C3%B3n%20de%20Gemelos%20de%20Pie.jpg",
+            },
+        ],
     },
-
     "Jueves: Torso B 💪": {
         "objetivo": "Brazos, Hombro Lateral & Core",
         "ejercicios": [
@@ -150,46 +163,51 @@ rutina = {
                 "series": "4 x 12-15",
                 "tempo": "2-1-1-0",
                 "carga": "6 kg / mano",
-                "nota": "Codos ligeramente flexionados. Elevación en plano escapular."
+                "nota": "Codos ligeramente flexionados. Elevación en plano escapular.",
+                "imagen": f"{BASE_URL}/Elevaciones%20Laterales%20con%20Mancuernas.jpg",
             },
             {
                 "ejercicio": "Press Francés con Barra Z",
                 "series": "3 x 10-12",
                 "tempo": "3-0-1-0",
                 "carga": "15-20 kg",
-                "nota": "Codos cerrados mirando al techo. Bajar barra hacia la coronilla."
+                "nota": "Codos cerrados mirando al techo. Bajar barra hacia la coronilla.",
+                "imagen": f"{BASE_URL}/Press%20Franc%C3%A9s%20con%20Barra%20Z.jpg",
             },
             {
                 "ejercicio": "Curl Martillo con Mancuernas",
                 "series": "3 x 10-12",
                 "tempo": "3-0-1-0",
                 "carga": "8 kg / mano",
-                "nota": "Trabajo para braquial y antebrazo. Movimiento estricto."
+                "nota": "Trabajo para braquial y antebrazo. Movimiento estricto.",
+                "imagen": f"{BASE_URL}/Curl%20Martillo%20con%20Mancuernas.jpg",
             },
             {
                 "ejercicio": "Extensiones de Tríceps en Polea",
                 "series": "3 x 12-15",
                 "tempo": "2-1-1-1",
                 "carga": "23-27 kg",
-                "nota": "Abrir la cuerda abajo y apretar el tríceps."
+                "nota": "Abrir la cuerda abajo y apretar el tríceps.",
+                "imagen": f"{BASE_URL}/Extensiones%20de%20Tr%C3%ADceps%20en%20Polea%20(Cuerda).jpg",
             },
             {
                 "ejercicio": "Curl de Bíceps en Banco Inclinado",
                 "series": "3 x 10-12",
                 "tempo": "3-0-1-0",
                 "carga": "8 kg / mano",
-                "nota": "Estiramiento profundo de la cabeza larga del bíceps."
+                "nota": "Estiramiento profundo de la cabeza larga del bíceps.",
+                "imagen": f"{BASE_URL}/Curl%20de%20B%C3%ADceps%20en%20Banco%20Inclinado.jpg",
             },
             {
                 "ejercicio": "Rueda Abdominal o Plancha Dinámica",
                 "series": "3 x 10-12",
                 "tempo": "2-1-1-0",
                 "carga": "Peso corporal",
-                "nota": "Movimiento desde la cadera y abdomen, no desde los hombros."
-            }
-        ]
+                "nota": "Movimiento desde la cadera y abdomen, no desde los hombros.",
+                "imagen": f"{BASE_URL}/Rueda%20Abdominal%20o%20Plancha%20Din%C3%A1mica.jpg",
+            },
+        ],
     },
-
     "Viernes: Pierna C 🍑": {
         "objetivo": "Énfasis Glúteo Hipertrofia & Modelado",
         "ejercicios": [
@@ -198,38 +216,43 @@ rutina = {
                 "series": "4 x 10-12 c/p",
                 "tempo": "3-1-1-0",
                 "carga": "8-10 kg / mano",
-                "nota": "Pie delantero alejado del banco, torso inclinado 45°. Llevar cadera atrás."
+                "nota": "Pie delantero alejado del banco, torso inclinado 45°. Llevar cadera atrás.",
+                "imagen": f"{BASE_URL}/Sentadilla%20B%C3%BAlgara%20(Enfoque%20Gl%C3%BAteo).jpg",
             },
             {
                 "ejercicio": "Hip Thrust Bóster / Polea en Patada",
                 "series": "3 x 12-15",
                 "tempo": "2-1-1-1",
                 "carga": "15-20 kg",
-                "nota": "Aislamiento sin carga axial en columna. Apriete máximo de 1 s arriba."
+                "nota": "Aislamiento sin carga axial en columna. Apriete máximo de 1 s arriba.",
+                "imagen": f"{BASE_URL}/Hip%20Thrust%20Boster%20%20Polea%20en%20Patada.jpg",
             },
             {
                 "ejercicio": "Prensa de Piernas (Pies Altos y Anchos)",
                 "series": "3 x 10-12",
                 "tempo": "3-0-1-0",
                 "carga": "35-40 kg / lado",
-                "nota": "Pies arriba para transferir el esfuerzo a glúteo e isquios."
+                "nota": "Pies arriba para transferir el esfuerzo a glúteo e isquios.",
+                "imagen": f"{BASE_URL}/Prensa%20de%20Piernas%20(Pies%20Altos%20y%20Anchos).jpg",
             },
             {
                 "ejercicio": "Patada de Glúteo en Polea",
                 "series": "3 x 15",
                 "tempo": "2-1-1-1",
                 "carga": "10-15 kg",
-                "nota": "Pierna ligeramente en diagonal (45°) para activar la fibra superior del glúteo."
+                "nota": "Pierna ligeramente en diagonal (45°) para activar la fibra superior del glúteo.",
+                "imagen": f"{BASE_URL}/Patada%20de%20Gl%C3%BAteo%20en%20Polea.jpg",
             },
             {
                 "ejercicio": "Hiperextensiones 45°",
                 "series": "3 x 12-15",
                 "tempo": "2-1-1-1",
                 "carga": "Disco de 10 kg",
-                "nota": "Encorvar espalda alta y subir enfocando el movimiento en glúteos."
-            }
-        ]
-    }
+                "nota": "Encorvar espalda alta y subir enfocando el movimiento en glúteos.",
+                "imagen": f"{BASE_URL}/Hiperextensiones%2045%C2%B0.jpg",
+            },
+        ],
+    },
 }
 
 # ============================================================
@@ -245,27 +268,33 @@ def cargar_historial():
     except Exception:
         return []
 
+
 def guardar_historial(historial):
     with open(HISTORIAL_FILE, "w", encoding="utf-8") as f:
         json.dump(historial, f, ensure_ascii=False, indent=2)
+
 
 def obtener_ejercicios():
     resultado = []
     for dia, info in rutina.items():
         for item in info["ejercicios"]:
-            resultado.append({
-                "dia": dia,
-                "ejercicio": item["ejercicio"],
-                "carga_referencia": item["carga"],
-                "series": item["series"]
-            })
+            resultado.append(
+                {
+                    "dia": dia,
+                    "ejercicio": item["ejercicio"],
+                    "carga_referencia": item["carga"],
+                    "series": item["series"],
+                }
+            )
     return resultado
+
 
 def buscar_ultimo_registro(historial, ejercicio):
     registros = [r for r in historial if r["ejercicio"] == ejercicio]
     if not registros:
         return None
     return sorted(registros, key=lambda x: (x["semana"], x["fecha"]))[-1]
+
 
 def calcular_peso_objetivo(ultimo, incremento, cumplio_rango):
     """Sugiere el peso de la siguiente semana.
@@ -276,6 +305,7 @@ def calcular_peso_objetivo(ultimo, incremento, cumplio_rango):
     if float(ultimo["peso"]) <= 0 or incremento <= 0:
         return float(ultimo["peso"])
     return round(float(ultimo["peso"]) + float(incremento), 2)
+
 
 # ============================================================
 # ESTADO
@@ -303,19 +333,16 @@ with st.expander("📈 ¿Cómo funcionará la progresión semanal?"):
 # ============================================================
 # PESTAÑAS
 # ============================================================
-tab_rutina, tab_registro, tab_progreso = st.tabs([
-    "🏋️ Rutina",
-    "📝 Registrar pesos",
-    "📈 Progreso"
-])
+tab_rutina, tab_registro, tab_progreso = st.tabs(
+    ["🏋️ Rutina", "📝 Registrar pesos", "📈 Progreso"]
+)
 
 # ============================================================
 # TAB 1 - RUTINA
 # ============================================================
 with tab_rutina:
     dia = st.selectbox(
-        "📅 Selecciona el día de entrenamiento:",
-        list(rutina.keys())
+        "📅 Selecciona el día de entrenamiento:", list(rutina.keys())
     )
 
     info_dia = rutina[dia]
@@ -324,30 +351,37 @@ with tab_rutina:
     st.info(f"🎯 **Objetivo:** {info_dia['objetivo']}")
 
     for i, item in enumerate(info_dia["ejercicios"], start=1):
-        with st.expander(
-            f"{i}. {item['ejercicio']}  |  {item['series']}"
-        ):
-            col1, col2, col3 = st.columns(3)
-            with col1:
+        with st.expander(f"{i}. {item['ejercicio']}  |  {item['series']}"):
+            col_info, col_img = st.columns([3, 2])
+
+            with col_info:
                 st.write(f"**Series / repeticiones:** {item['series']}")
-            with col2:
                 st.write(f"**Tempo:** {item['tempo']}")
-            with col3:
                 st.write(f"**Carga de referencia:** {item['carga']}")
+                st.write(f"📝 **Técnica:** {item['nota']}")
 
-            st.write(f"📝 **Técnica:** {item['nota']}")
-
-            ultimo = buscar_ultimo_registro(
-                st.session_state.historial,
-                item["ejercicio"]
-            )
-            if ultimo:
-                st.success(
-                    f"Último registro: **{ultimo['peso']} kg** "
-                    f"(semana {ultimo['semana']})"
+                ultimo = buscar_ultimo_registro(
+                    st.session_state.historial, item["ejercicio"]
                 )
-            else:
-                st.caption("Aún no hay un peso registrado para este ejercicio.")
+                if ultimo:
+                    st.success(
+                        f"Último registro: **{ultimo['peso']} kg** "
+                        f"(semana {ultimo['semana']})"
+                    )
+                else:
+                    st.caption(
+                        "Aún no hay un peso registrado para este ejercicio."
+                    )
+
+            with col_img:
+                if "imagen" in item and item["imagen"]:
+                    st.image(
+                        item["imagen"],
+                        caption=f"Ejecución: {item['ejercicio']}",
+                        use_container_width=True,
+                    )
+                else:
+                    st.caption("📷 Sin imagen asignada.")
 
 # ============================================================
 # TAB 2 - REGISTRO SEMANAL
@@ -363,24 +397,15 @@ with tab_registro:
 
     with col1:
         semana = st.number_input(
-            "Semana",
-            min_value=1,
-            max_value=52,
-            value=1,
-            step=1
+            "Semana", min_value=1, max_value=52, value=1, step=1
         )
 
     with col2:
-        fecha_entrenamiento = st.date_input(
-            "Fecha",
-            value=date.today()
-        )
+        fecha_entrenamiento = st.date_input("Fecha", value=date.today())
 
     with col3:
         dia_registro = st.selectbox(
-            "Día",
-            list(rutina.keys()),
-            key="dia_registro"
+            "Día", list(rutina.keys()), key="dia_registro"
         )
 
     ejercicios_dia = rutina[dia_registro]["ejercicios"]
@@ -388,17 +413,15 @@ with tab_registro:
     ejercicio_registro = st.selectbox(
         "Ejercicio",
         [x["ejercicio"] for x in ejercicios_dia],
-        key="ejercicio_registro"
+        key="ejercicio_registro",
     )
 
     ejercicio_info = next(
-        x for x in ejercicios_dia
-        if x["ejercicio"] == ejercicio_registro
+        x for x in ejercicios_dia if x["ejercicio"] == ejercicio_registro
     )
 
     ultimo = buscar_ultimo_registro(
-        st.session_state.historial,
-        ejercicio_registro
+        st.session_state.historial, ejercicio_registro
     )
 
     if ultimo:
@@ -416,37 +439,34 @@ with tab_registro:
             max_value=500.0,
             value=float(ultimo["peso"]) if ultimo else 0.0,
             step=0.5,
-            format="%.1f"
+            format="%.1f",
         )
 
     with col2:
         reps_realizadas = st.text_input(
-            "Repeticiones realizadas",
-            value=ejercicio_info["series"]
+            "Repeticiones realizadas", value=ejercicio_info["series"]
         )
 
     cumplio_rango = st.checkbox(
         "✅ Completé el rango de repeticiones con buena técnica",
         value=False,
-        help="Solo si completaste todas las series dentro del rango indicado y con buena técnica."
+        help="Solo si completaste todas las series dentro del rango indicado y con buena técnica.",
     )
 
     incremento_planeado = st.selectbox(
         "Incremento sugerido para la próxima semana",
         [0.0, 0.5, 1.0, 1.5, 2.0, 2.5, 5.0],
         index=3 if "Mancuernas" in ejercicio_registro else 4,
-        format_func=lambda x: "Mantener peso" if x == 0 else f"+{x:g} kg"
+        format_func=lambda x: "Mantener peso" if x == 0 else f"+{x:g} kg",
     )
 
     notas = st.text_area(
         "Notas de la sesión",
-        placeholder="Ej.: completé todas las series, se sintió pesado, buena técnica, molestias, etc."
+        placeholder="Ej.: completé todas las series, se sintió pesado, buena técnica, molestias, etc.",
     )
 
     peso_objetivo = calcular_peso_objetivo(
-        ultimo,
-        incremento_planeado,
-        cumplio_rango
+        ultimo, incremento_planeado, cumplio_rango
     )
 
     if peso_objetivo is not None:
@@ -472,12 +492,13 @@ with tab_registro:
             "cumplio_rango": bool(cumplio_rango),
             "incremento_planeado": float(incremento_planeado),
             "peso_objetivo_siguiente": peso_objetivo,
-            "notas": notas
+            "notas": notas,
         }
 
         # Si ya existe un registro del mismo ejercicio y semana, lo reemplaza.
         st.session_state.historial = [
-            r for r in st.session_state.historial
+            r
+            for r in st.session_state.historial
             if not (
                 r["ejercicio"] == ejercicio_registro
                 and int(r["semana"]) == int(semana)
@@ -498,9 +519,13 @@ with tab_registro:
         if ultimo:
             diferencia = float(peso) - float(ultimo["peso"])
             if diferencia > 0:
-                st.success(f"📈 Aumento respecto al último registro: +{diferencia:.1f} kg")
+                st.success(
+                    f"📈 Aumento respecto al último registro: +{diferencia:.1f} kg"
+                )
             elif diferencia < 0:
-                st.warning(f"📉 Disminución respecto al último registro: {diferencia:.1f} kg")
+                st.warning(
+                    f"📉 Disminución respecto al último registro: {diferencia:.1f} kg"
+                )
             else:
                 st.info("➡️ Mismo peso que el último registro.")
 
@@ -511,7 +536,9 @@ with tab_progreso:
     st.subheader("📈 Seguimiento de progresión")
 
     if not st.session_state.historial:
-        st.info("Todavía no hay registros. Comienza guardando el peso de la primera semana.")
+        st.info(
+            "Todavía no hay registros. Comienza guardando el peso de la primera semana."
+        )
     else:
         ejercicios_registrados = sorted(
             set(r["ejercicio"] for r in st.session_state.historial)
@@ -519,15 +546,16 @@ with tab_progreso:
 
         ejercicio_grafica = st.selectbox(
             "Selecciona el ejercicio para ver su evolución:",
-            ejercicios_registrados
+            ejercicios_registrados,
         )
 
         registros_ejercicio = sorted(
             [
-                r for r in st.session_state.historial
+                r
+                for r in st.session_state.historial
                 if r["ejercicio"] == ejercicio_grafica
             ],
-            key=lambda x: int(x["semana"])
+            key=lambda x: int(x["semana"]),
         )
 
         if registros_ejercicio:
@@ -541,24 +569,16 @@ with tab_progreso:
 
             import pandas as pd
 
-            datos = pd.DataFrame([
-                {
-                    "Semana": int(r["semana"]),
-                    "Peso (kg)": float(r["peso"])
-                }
-                for r in registros_ejercicio
-            ])
-
-            st.line_chart(
-                datos.set_index("Semana"),
-                y="Peso (kg)"
+            datos = pd.DataFrame(
+                [
+                    {"Semana": int(r["semana"]), "Peso (kg)": float(r["peso"])}
+                    for r in registros_ejercicio
+                ]
             )
 
-            st.dataframe(
-                datos,
-                use_container_width=True,
-                hide_index=True
-            )
+            st.line_chart(datos.set_index("Semana"), y="Peso (kg)")
+
+            st.dataframe(datos, use_container_width=True, hide_index=True)
 
             if len(registros_ejercicio) >= 2:
                 primero = float(registros_ejercicio[0]["peso"])
@@ -575,7 +595,9 @@ with tab_progreso:
                         f"📉 Variación acumulada: **{diferencia:.1f} kg**."
                     )
                 else:
-                    st.info("➡️ El peso se mantiene igual desde el primer registro.")
+                    st.info(
+                        "➡️ El peso se mantiene igual desde el primer registro."
+                    )
 
         st.markdown("---")
         st.subheader("📋 Historial completo")
@@ -590,9 +612,7 @@ with tab_progreso:
             )
 
             st.dataframe(
-                historial_df,
-                use_container_width=True,
-                hide_index=True
+                historial_df, use_container_width=True, hide_index=True
             )
 
             csv = historial_df.to_csv(index=False).encode("utf-8-sig")
@@ -600,7 +620,7 @@ with tab_progreso:
                 "⬇️ Descargar historial en Excel/CSV",
                 data=csv,
                 file_name="historial_entrenamiento.csv",
-                mime="text/csv"
+                mime="text/csv",
             )
 
 # ============================================================
